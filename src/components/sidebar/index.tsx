@@ -135,7 +135,7 @@ export default function SideBar() {
   if (isMobile) {
     return (
       <>
-        <Drawer.Root placement="start" open={true}>
+        <Drawer.Root placement="start">
           <Drawer.Trigger asChild>
             <IconButton aria-label="Open menu" variant="subtle" size="md">
               <FaArrowRightFromBracket color="black" />

@@ -1,12 +1,19 @@
 import { HStack, Icon, Switch, Text } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa6";
+import { useColorMode } from "../ui/color-mode";
 
 export default function DarkModeSwitcher() {
-  const { toggleColorMode } = useColorMode();
+  const { toggleColorMode, colorMode } = useColorMode();
   return (
     <HStack justify={"space-between"} w="100%">
       <Text>Dark Mode</Text>
-      <Switch.Root onCheckedChange={() => {}} colorPalette="blue" size="lg">
+
+      <Switch.Root
+        // onCheckedChange={toggleColorMode}
+        // checked={colorMode === "dark"}
+        colorPalette="blue"
+        size="lg"
+      >
         <Switch.HiddenInput />
         <Switch.Control>
           <Switch.Thumb />
