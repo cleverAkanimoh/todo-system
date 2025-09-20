@@ -42,7 +42,7 @@ export default function Search() {
       </Box>
       <Dialog.Root>
         <Dialog.Trigger asChild hideFrom="md">
-          <Button variant="outline" size="xs">
+          <Button variant="outline" size="xs" rounded="lg">
             <SearchNormal color="black" />
           </Button>
         </Dialog.Trigger>

@@ -13,12 +13,12 @@ export default function MobileSidebar() {
         </Drawer.Trigger>
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content p="0" w="100%">
+          <Drawer.Content p="0">
             <Drawer.CloseTrigger>
               <IconButton
                 aria-label="Open menu"
                 variant="subtle"
-                size="md"
+                size="xs"
                 name="CloseSquare"
               >
                 <FaArrowRightFromBracket color="black" />
