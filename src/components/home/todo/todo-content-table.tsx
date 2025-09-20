@@ -70,8 +70,14 @@ const TodoContentTable = () => {
                   </Flex>
                 </Table.Cell>
                 <Table.Cell>
-                  <Button variant="subtle" h='20px' w='30px'>
-                    <FaEllipsisH color="#6C7278" size='12px' />
+                  <Button
+                    variant="subtle"
+                    h="20px"
+                    w="30px"
+                    bg="#F7F7F7"
+                    scale="0.8"
+                  >
+                    <FaEllipsisH color="#6C7278" />
                   </Button>
                 </Table.Cell>
               </Table.Row>
