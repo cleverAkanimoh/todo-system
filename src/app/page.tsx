@@ -1,10 +1,11 @@
 import { HomeToDo, HomeTopNav } from "@/components/home";
 
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 export default function HomePage() {
   return (
-    <Box
+    <Flex
+      direction={"column"}
       as="main"
       bg="background"
       h="100dvh"
@@ -15,9 +16,18 @@ export default function HomePage() {
       <HomeTopNav />
 
       {/* Home content */}
-      <Box as="section" w="100%" h="100%" flex="1" bg="teal" p="2%">
+      <Flex
+        as="section"
+        w="100%"
+        flex="1"
+        px={{ base: "3%", xl: "0" }}
+        py={{ base: "10", md: "14" }}
+        justify="center"
+        overflowY="auto"
+        scrollbar={"hidden"}
+      >
         <HomeToDo />
-      </Box>
-    </Box>
+      </Flex>
+    </Flex>
   );
 }
