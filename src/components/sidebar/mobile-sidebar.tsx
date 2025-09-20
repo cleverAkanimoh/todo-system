@@ -4,7 +4,7 @@ import SidebarContent from "./sidebar-content";
 
 export default function MobileSidebar() {
   return (
-    <Box hideFrom="md">
+    <Box hideFrom="lg">
       <Drawer.Root placement="start">
         <Drawer.Trigger asChild>
           <IconButton aria-label="Open menu" variant="subtle" size="xs">

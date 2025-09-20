@@ -5,6 +5,9 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
+        "black.1": {
+          value: "#464B50",
+        },
         "teal.1": {
           value: "#75C5C1",
         },

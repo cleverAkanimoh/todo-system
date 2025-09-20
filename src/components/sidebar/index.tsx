@@ -6,7 +6,7 @@ import SidebarContent from "./sidebar-content";
 
 export default function SideBar() {
   return (
-    <Box hideBelow="md" maxW="300px" w="full">
+    <Box hideBelow="lg" maxW="300px" w="full">
       <SidebarContent />;
     </Box>
   );

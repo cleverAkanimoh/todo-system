@@ -58,11 +58,7 @@ export default function TodoContentStats() {
           >
             <Group align="center">
               <item.icon color={isActive ? "white" : item.color} size="20" />
-              <Text
-                fontSize={"sm"}
-                truncate
-                color={isActive ? "white" : "black"}
-              >
+              <Text fontSize={14} truncate color={isActive ? "white" : "black"}>
                 {item.label}
               </Text>
             </Group>
