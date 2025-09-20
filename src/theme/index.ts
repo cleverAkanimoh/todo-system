@@ -5,11 +5,35 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
-        "grey.1": {
+        "teal.1": {
+          value: "#75C5C1",
+        },
+        "teal.light": {
           value: "#E9F5F7",
         },
-        "grey.text": {
+        "purple.1": {
+          value: "#41245F",
+        },
+        "purple.light": {
+          value: "#CFB7E8",
+        },
+        "purple.bg": {
+          value: "#F9F3FF",
+        },
+        "yellow.1": {
+          value: "#F6BE38",
+        },
+        "yellow.bg": {
+          value: "#FBF4E4",
+        },
+        "green.1": {
           value: "#75C5C1",
+        },
+        "green.bg": {
+          value: "#E9F5F7",
+        },
+        "grey.1": {
+          value: "#E9F5F7",
         },
         border: {
           value: "#CDD6E9",

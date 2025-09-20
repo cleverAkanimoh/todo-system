@@ -1,4 +1,4 @@
-import { Box, Drawer, IconButton } from "@chakra-ui/react";
+import { Box, Drawer, IconButton, Portal } from "@chakra-ui/react";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import SidebarContent from "./sidebar-content";
 
@@ -11,22 +11,24 @@ export default function MobileSidebar() {
             <FaArrowRightFromBracket color="black" />
           </IconButton>
         </Drawer.Trigger>
-        <Drawer.Backdrop />
-        <Drawer.Positioner>
-          <Drawer.Content p="0">
-            <Drawer.CloseTrigger>
-              <IconButton
-                aria-label="Open menu"
-                variant="subtle"
-                size="xs"
-                name="CloseSquare"
-              >
-                <FaArrowRightFromBracket color="black" />
-              </IconButton>
-            </Drawer.CloseTrigger>
-            <SidebarContent />
-          </Drawer.Content>
-        </Drawer.Positioner>
+        <Portal>
+          <Drawer.Backdrop />
+          <Drawer.Positioner>
+            <Drawer.Content p="0" zIndex="overlay">
+              <Drawer.CloseTrigger>
+                <IconButton
+                  aria-label="Open menu"
+                  variant="subtle"
+                  size="xs"
+                  name="CloseSquare"
+                >
+                  <FaArrowRightFromBracket color="black" />
+                </IconButton>
+              </Drawer.CloseTrigger>
+              <SidebarContent />
+            </Drawer.Content>
+          </Drawer.Positioner>
+        </Portal>
       </Drawer.Root>
     </Box>
   );
