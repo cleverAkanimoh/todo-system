@@ -2,10 +2,9 @@ import { appMaxSize } from "@/constants";
 import { Button, Flex, Group, Image } from "@chakra-ui/react";
 import { Link2, Notification } from "iconsax-react";
 import NextImage from "next/image";
+import { Search, UserAvatar } from ".";
 import MobileSidebar from "../sidebar/mobile-sidebar";
 import { buttonImagesArray, lastButtonArray } from "./button-utils";
-import Search from "./search";
-import UserAvatar from "./user-avatar";
 
 export default function HomeTopNav() {
   return (

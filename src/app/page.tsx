@@ -1,9 +1,10 @@
-import HomeTopNav from "@/components/home/home-nav";
-import { Stack } from "@chakra-ui/react";
+import { HomeToDo, HomeTopNav } from "@/components/home";
+
+import { Box } from "@chakra-ui/react";
 
 export default function HomePage() {
   return (
-    <Stack
+    <Box
       as="main"
       bg="background"
       h="100dvh"
@@ -12,7 +13,11 @@ export default function HomePage() {
       overflow={"hidden"}
     >
       <HomeTopNav />
-      <Stack as="section" w="100%"></Stack>
-    </Stack>
+
+      {/* Home content */}
+      <Box as="section" w="100%" h="100%" flex="1" bg="teal" p="2%">
+        <HomeToDo />
+      </Box>
+    </Box>
   );
 }
