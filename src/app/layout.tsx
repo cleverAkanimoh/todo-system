@@ -3,6 +3,7 @@ import Providers from "@/theme/providers";
 import type { Metadata } from "next";
 import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import LayoutClient from "@/components/layout-client";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -28,11 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
+        className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased scroll-smooth `}
       >
         <Providers>
-          <SideBar />
-          {children}
+          <LayoutClient>{children}</LayoutClient>
         </Providers>
       </body>
     </html>

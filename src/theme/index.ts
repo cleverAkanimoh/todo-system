@@ -11,6 +11,9 @@ const config = defineConfig({
         "grey.text": {
           value: "#75C5C1",
         },
+        border: {
+          value: "#CDD6E9",
+        },
       },
       fonts: {
         body: { value: "var(--font-plus-jakarta-sans), sans-serif" },

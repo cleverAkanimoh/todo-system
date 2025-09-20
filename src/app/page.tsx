@@ -1,13 +1,18 @@
-import { Box } from "@chakra-ui/react";
+import HomeTopNav from "@/components/home/home-nav";
+import { Stack } from "@chakra-ui/react";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <Box
+    <Stack
       as="main"
       bg="background"
-      p="4"
-      minH="100dvh"
+      h="100dvh"
+      w="100%"
       scrollbar={"hidden"}
-    ></Box>
+      overflow={"hidden"}
+    >
+      <HomeTopNav />
+      <Stack as="section" w="100%"></Stack>
+    </Stack>
   );
 }

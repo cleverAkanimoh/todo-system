@@ -1,9 +1,8 @@
 import { HStack, Icon, Switch, Text } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa6";
-import { useColorMode } from "../ui/color-mode";
 
 export default function DarkModeSwitcher() {
-  const { toggleColorMode, colorMode } = useColorMode();
+  // const { toggleColorMode, colorMode } = useColorMode();
   return (
     <HStack justify={"space-between"} w="100%">
       <Text>Dark Mode</Text>
