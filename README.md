@@ -1,7 +1,3 @@
-Here’s a **polished, interview-ready README** that keeps your original details but presents them in a more professional, concise, and recruiter-friendly way:
-
----
-
 # 📝 Todo System
 
 A responsive **Todo Management App** built with **Next.js**, **TypeScript**, and **Chakra UI v3**, inspired by the provided [Figma design](https://www.figma.com/design/y5jco2weGtIH3sdy6BVyMW/T-GLOBAL-TEST?node-id=2001-57594&t=Beg65ppOaR9bP96J-0).
@@ -16,7 +12,6 @@ This project demonstrates converting a modern UI design into a fully functioning
 - **Dual layouts:** Table view and card view of todos.
 - **Optimistic UI updates** and **localStorage persistence** for a smooth experience.
 - **Responsive design** following Chakra UI best practices.
-- **Loading & empty states** for a production-like feel.
 
 ---
 
@@ -37,7 +32,7 @@ This project demonstrates converting a modern UI design into a fully functioning
 ### 1️⃣ Clone & Install
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/cleverAkanimoh/todo-system.git
 cd todo-system
 yarn
 ```
@@ -57,10 +52,9 @@ App will be available at [http://localhost:3000](http://localhost:3000).
 ```
 src/
  ├─ components/     # Reusable UI components
- ├─ pages/          # Next.js pages & routes
- ├─ store/          # Zustand/Context state management
+ ├─ app/          # Next.js app & routes
+ ├─ store/          # Zustand state management
  ├─ utils/          # Utility helpers
- └─ styles/         # Global styles & theme overrides
 ```
 
 ---
