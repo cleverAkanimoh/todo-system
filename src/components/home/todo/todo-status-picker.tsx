@@ -37,8 +37,8 @@ export default function TodoStatusPicker({
         </Popover.Trigger>
         <Portal>
           <Popover.Positioner>
-            <Popover.Content maxW="200px">
-              <Popover.Body>
+            <Popover.Content maxW="160px">
+              <Popover.Body px="0" py="2">
                 {todoOptions.map((item, idx) => (
                   <Button
                     key={idx}
