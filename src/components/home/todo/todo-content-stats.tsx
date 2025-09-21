@@ -45,12 +45,12 @@ export default function TodoContentStats() {
           bg: "green.bg",
           count: todoCount.completed,
         },
-      ].map((item) => {
+      ].map((item, idx) => {
         const isActive = status === item.id;
         const color = getToDoColor(item.id);
         return (
           <Group
-            key={item.id}
+            key={idx}
             as="button"
             align="center"
             bg={isActive ? color : "white"}

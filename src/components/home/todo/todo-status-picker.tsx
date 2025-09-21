@@ -39,9 +39,9 @@ export default function TodoStatusPicker({
           <Popover.Positioner>
             <Popover.Content maxW="200px">
               <Popover.Body>
-                {todoOptions.map((item) => (
+                {todoOptions.map((item, idx) => (
                   <Button
-                    key={item.id}
+                    key={idx}
                     variant="ghost"
                     w="full"
                     justifyContent="start"

@@ -107,9 +107,9 @@ const TodoContentCard = ({
                       )
                     : true
                 )
-                .map((item) => {
+                .map((item, idx) => {
                   return (
-                    <Stack key={item.id} bg="white" p="4" borderRadius="md">
+                    <Stack key={idx} bg="white" p="4" borderRadius="md">
                       <Text fontWeight="600" color="black.1">
                         {item.name}
                       </Text>

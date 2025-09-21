@@ -1,5 +1,12 @@
 import { TodoPriority } from "@/store/todos";
-import { Button, Group, Popover, Portal, Separator, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Group,
+  Popover,
+  Portal,
+  Separator,
+  Text,
+} from "@chakra-ui/react";
 import { Flag, Slash } from "iconsax-react";
 import { getPriorityColor } from "./todo-utils";
 
@@ -39,9 +46,9 @@ export default function ToDoPriorityPicker({
           <Popover.Positioner>
             <Popover.Content maxW="200px">
               <Popover.Body p="0" py="2">
-                {todoPriorityOptions.map((item) => (
+                {todoPriorityOptions.map((item, idx) => (
                   <Button
-                    key={item.id}
+                    key={idx}
                     variant="ghost"
                     w="full"
                     justifyContent="start"

@@ -13,8 +13,9 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { ProfileCircle, Stickynote } from "iconsax-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useSetQueryParams } from "@/hooks";
 import { useTodoAction } from "@/store/todo-action";
 import { TodoPriority, TodoStatus, TTodo, useTodoStore } from "@/store/todos";
 import { useSearchParams } from "next/navigation";
@@ -29,11 +30,11 @@ export default function TodoModal() {
   const editTodo = useTodoStore((s) => s.editTodo);
   const currentTodos = useTodoAction((state) => state.currentTodos);
   const searchParams = useSearchParams();
+  const setQueryParams = useSetQueryParams();
 
   const addStatus = searchParams.get("addStatus") as TodoStatus | null;
-  console.log(addStatus);
   const [todoStatus, setTodoStatus] = useState<TodoStatus>(
-    currentTodos?.status || addStatus || TodoStatus.TODO
+    currentTodos?.status || TodoStatus.TODO
   );
   const [todoName, setTodoName] = useState(currentTodos?.name || "");
   const [todoDates, setTodoDates] = useState(currentTodos?.dates || "");
@@ -46,6 +47,12 @@ export default function TodoModal() {
   const [todoPriority, setTodoPriority] = useState<TodoPriority | null>(
     currentTodos?.priority || null
   );
+
+  useEffect(() => {
+    if (addStatus) {
+      setTodoStatus(addStatus);
+    }
+  }, [addStatus]);
 
   const mutateTask = () => {
     const todoPayload: Omit<TTodo, "id"> = {
@@ -68,7 +75,11 @@ export default function TodoModal() {
     <Dialog.Root
       lazyMount
       open={openTodoModal}
-      onOpenChange={(e) => setOpenTodoModal(e.open)}
+      onOpenChange={(e) => {
+        setQueryParams({ addStatus: null });
+        setTodoStatus(TodoStatus.TODO);
+        setOpenTodoModal(e.open);
+      }}
       placement="center"
       size="lg"
     >
