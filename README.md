@@ -9,6 +9,8 @@ This project demonstrates converting a modern UI design into a fully functioning
 
 - **Add, Update, Delete, Search, and Filter todos** by status (To-Do, In Progress, Completed).
 - **Mark tasks as completed** – automatically moves them to the _Completed_ section.
+- **Increase Viewable tasks** – increase the rows per page value
+- **Functional Pagination System** – Create todos to see the pagination extend appropriately
 - **Dual layouts:** Table view and card view of todos.
 - **Optimistic UI updates** and **localStorage persistence** for a smooth experience.
 - **Responsive design** following Chakra UI best practices.
