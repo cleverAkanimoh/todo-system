@@ -1,5 +1,6 @@
 "use client";
 
+import { useTodoAction } from "@/store/todo-action";
 import {
   Avatar,
   Box,
@@ -16,6 +17,11 @@ import { getPriorityColor, todosColum } from "./todo-utils";
 
 export default function TodoContentCards() {
   const searchParams = useSearchParams();
+  const setOpenTodoModal = useTodoAction((state) => state.setOpenTodoModal);
+
+  const search = searchParams.get("search");
+
+  const normalizedSearch = search?.toLowerCase().trim() ?? "";
 
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
@@ -24,10 +30,10 @@ export default function TodoContentCards() {
 
   return (
     <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap="4">
-      {todosColum.map((item) => {
+      {todosColum.map((item, idx) => {
         return (
           <Stack
-            key={item.id}
+            key={idx}
             bg={item.bg}
             p="2"
             borderRadius="md"
@@ -55,48 +61,59 @@ export default function TodoContentCards() {
 
             <Stack>
               {item.todos.length &&
-                item.todos.map((item) => {
-                  return (
-                    <Stack key={item.id} bg="white" p="4" borderRadius="md">
-                      <Text fontWeight="600" color="black.1">
-                        {item.name}
-                      </Text>
-                      <Group>
-                        <Calendar color="black" size="16" />{" "}
-                        <Text color="black.1" fontWeight={400}>
-                          {item.dates}
+                item.todos
+                  .filter((t) =>
+                    normalizedSearch
+                      ? Object.values(t).some((v) =>
+                          String(v).toLowerCase().includes(normalizedSearch)
+                        )
+                      : true
+                  )
+                  .map((item) => {
+                    return (
+                      <Stack key={item.id} bg="white" p="4" borderRadius="md">
+                        <Text fontWeight="600" color="black.1">
+                          {item.name}
                         </Text>
-                      </Group>
-                      <Group>
-                        <ProfileCircle color="black" size="16" />{" "}
-                        <Text color="black.1" fontWeight={400}>
-                          {Array.from({ length: item.assignees }, (_, idx) => {
-                            return (
-                              <Avatar.Root
-                                key={idx}
-                                w="20px"
-                                h="20px"
-                              ></Avatar.Root>
-                            );
-                          })}
-                        </Text>
-                      </Group>
-                      <Group>
-                        <Flag
-                          color={getPriorityColor(item.priority)}
-                          size="16"
-                        />{" "}
-                        <Text
-                          color="black.1"
-                          fontWeight={400}
-                          textTransform="capitalize"
-                        >
-                          {item.priority}
-                        </Text>
-                      </Group>
-                    </Stack>
-                  );
-                })}
+                        <Group>
+                          <Calendar color="black" size="16" />{" "}
+                          <Text color="black.1" fontWeight={400}>
+                            {item.dates}
+                          </Text>
+                        </Group>
+                        <Group>
+                          <ProfileCircle color="black" size="16" />{" "}
+                          <Text color="black.1" fontWeight={400}>
+                            {Array.from(
+                              { length: item.assignees },
+                              (_, idx) => {
+                                return (
+                                  <Avatar.Root
+                                    key={idx}
+                                    w="20px"
+                                    h="20px"
+                                  ></Avatar.Root>
+                                );
+                              }
+                            )}
+                          </Text>
+                        </Group>
+                        <Group>
+                          <Flag
+                            color={getPriorityColor(item.priority)}
+                            size="16"
+                          />{" "}
+                          <Text
+                            color="black.1"
+                            fontWeight={400}
+                            textTransform="capitalize"
+                          >
+                            {item.priority}
+                          </Text>
+                        </Group>
+                      </Stack>
+                    );
+                  })}
             </Stack>
             <Button
               bg="white"
@@ -105,6 +122,7 @@ export default function TodoContentCards() {
               fontWeight={400}
               rounded="md"
               justifyContent="start"
+              onClick={() => setOpenTodoModal(true)}
             >
               <BiPlus /> Add Task
             </Button>

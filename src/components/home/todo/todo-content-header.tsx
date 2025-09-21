@@ -32,6 +32,7 @@ export default function TodoContentHeader() {
           border="0"
           h="30px"
           _focus={{ border: "0", ring: "0", outline: "0" }}
+          onChange={(e) => setQueryParams({ search: e.target.value, page: 1 })}
         />
       </Group>
       <Group

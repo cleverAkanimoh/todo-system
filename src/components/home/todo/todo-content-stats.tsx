@@ -5,7 +5,7 @@ import { TodoStatus } from "@/store/todos";
 import { Box, Group, Text } from "@chakra-ui/react";
 import { Status, TaskSquare, TickCircle } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
-import { getToDoColor } from "./todo-utils";
+import { getToDoColor, todoCount } from "./todo-utils";
 
 export default function TodoContentStats() {
   const searchParams = useSearchParams();
@@ -25,21 +25,21 @@ export default function TodoContentStats() {
           id: TodoStatus.TODO,
           icon: TaskSquare,
           bg: "purple.bg",
-          count: 20,
+          count: todoCount.todo,
         },
         {
           label: "In Progress",
           id: TodoStatus.IN_PROGRESS,
           icon: Status,
           bg: "yellow.bg",
-          count: 23,
+          count: todoCount.inProgress,
         },
         {
           label: "Complete",
           id: TodoStatus.COMPLETED,
           icon: TickCircle,
           bg: "green.bg",
-          count: 20,
+          count: todoCount.completed,
         },
       ].map((item) => {
         const isActive = status === item.id;

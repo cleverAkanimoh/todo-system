@@ -26,7 +26,10 @@ import { allTodos, getPriorityColor } from "./todo-utils";
 const TodoContentTable = () => {
   const searchParams = useSearchParams();
   const setUrlSearchParams = useSetQueryParams();
+
   const pageSize = Number(searchParams.get("page_size") || 5);
+  const status = searchParams.get("status");
+  const search = searchParams.get("search");
   const currentPage = Number(searchParams.get("page") || 1);
 
   const totalPages = Math.ceil(allTodos.length / pageSize);
@@ -34,7 +37,23 @@ const TodoContentTable = () => {
   const start = (safePage - 1) * pageSize;
   const end = start + pageSize;
 
-  const pagedTodos = allTodos.slice(start, end);
+  const normalizedSearch = search?.toLowerCase().trim() ?? "";
+  const normalizedStatus = status?.toLowerCase().trim() ?? "";
+
+  const pagedTodos = allTodos
+    .filter((t) =>
+      normalizedStatus
+        ? t.status.toLowerCase().trim() === normalizedStatus
+        : true
+    )
+    .filter((t) =>
+      normalizedSearch
+        ? Object.values(t).some((v) =>
+            String(v).toLowerCase().includes(normalizedSearch)
+          )
+        : true
+    )
+    .slice(start, end);
 
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
