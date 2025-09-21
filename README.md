@@ -1,4 +1,4 @@
-# 📝 Todo System
+# Modern Todo System
 
 A responsive **Todo Management App** built with **Next.js**, **TypeScript**, and **Chakra UI v3**, inspired by the provided [Figma design](https://www.figma.com/design/y5jco2weGtIH3sdy6BVyMW/T-GLOBAL-TEST?node-id=2001-57594&t=Beg65ppOaR9bP96J-0).
 This project demonstrates converting a modern UI design into a fully functioning web application.
