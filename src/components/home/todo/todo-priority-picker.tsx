@@ -44,7 +44,7 @@ export default function ToDoPriorityPicker({
         </Popover.Trigger>
         <Portal>
           <Popover.Positioner>
-            <Popover.Content maxW="200px">
+            <Popover.Content maxW="160px">
               <Popover.Body p="0" py="2">
                 {todoPriorityOptions.map((item, idx) => (
                   <Button
@@ -61,8 +61,14 @@ export default function ToDoPriorityPicker({
               </Popover.Body>
               <Separator />
               <Popover.Footer p="0">
-                <Button variant="plain" p="4" onClick={() => onChange(null)}>
-                  <Slash color="black" /> Clear
+                <Button
+                  disabled={!value}
+                  variant="plain"
+                  p="5"
+                  onClick={value ? () => onChange(null) : undefined}
+                  size="sm"
+                >
+                  <Slash color="black" size="16" /> Clear
                 </Button>
               </Popover.Footer>
             </Popover.Content>
