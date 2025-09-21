@@ -7,7 +7,6 @@ import { useTodoAction } from "@/store/todo-action";
 import { TTodo, useTodoStore } from "@/store/todos";
 import {
   Avatar,
-  Badge,
   Box,
   Button,
   Group,
@@ -27,12 +26,7 @@ import {
 } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
 import { BiMinus, BiPlus } from "react-icons/bi";
-import {
-  getPriorityColor,
-  getToDoColor,
-  getToDoIcon,
-  todosColumn,
-} from "./todo-utils";
+import { getPriorityColor, todosColumn } from "./todo-utils";
 const MotionStack = motion.create(Stack);
 
 export default function TodoContentCards() {
@@ -124,7 +118,6 @@ const TodoContentCard = ({
                     : true
                 )
                 .map((item, idx) => {
-                  const TodoIcon = getToDoIcon(item.status);
                   return (
                     <Stack key={idx} bg="white" p="4" borderRadius="md">
                       <Text fontWeight="600" color="black.1">
@@ -163,49 +156,42 @@ const TodoContentCard = ({
                           {item.priority}
                         </Text>
                       </Group>
-                      <Group>
-                        {[
-                          {
-                            label: "Edit Todo",
-                            icon: Edit,
-                            onClick: () => setCurrentTodo(item, true),
-                          },
-                          {
-                            label: "Delete Todo",
-                            icon: Trash,
-                            onClick: () => deleteTodo(item.id),
-                          },
-                        ].map((item, idx) => {
-                          const isDelete = item.label.startsWith("Delete");
+                      {item.id.length > 2 && (
+                        <Group gap="0" justifyContent="end">
+                          {[
+                            {
+                              label: "Edit Todo",
+                              icon: Edit,
+                              onClick: () => setCurrentTodo(item, true),
+                            },
+                            {
+                              label: "Delete Todo",
+                              icon: Trash,
+                              onClick: () => deleteTodo(item.id),
+                            },
+                          ].map((item, idx) => {
+                            const isDelete = item.label.startsWith("Delete");
 
-                          return (
-                            <Tooltip key={idx} content={item.label}>
-                              <Button
-                                variant="ghost"
-                                justifyContent="start"
-                                onClick={item.onClick}
-                                color={isDelete ? "red" : "black"}
-                                rounded="none"
-                              >
-                                <item.icon color={isDelete ? "red" : "black"} />
-                                {item.label}
-                              </Button>
-                            </Tooltip>
-                          );
-                        })}
-
-                        <Badge
-                          bg={getToDoColor(item.status)}
-                          color="white"
-                          fontWeight="600"
-                          justifyContent="center"
-                          p="3"
-                          rounded="none"
-                        >
-                          {item.status && <TodoIcon size="16" color="white" />}
-                          {item.status.toUpperCase()}
-                        </Badge>
-                      </Group>
+                            return (
+                              <Tooltip key={idx} content={item.label}>
+                                <Button
+                                  variant="ghost"
+                                  justifyContent="start"
+                                  onClick={item.onClick}
+                                  color={isDelete ? "red" : "black"}
+                                  rounded="lg"
+                                  size="sm"
+                                >
+                                  <item.icon
+                                    color={isDelete ? "red" : "black"}
+                                    // size="16"
+                                  />
+                                </Button>
+                              </Tooltip>
+                            );
+                          })}
+                        </Group>
+                      )}
                     </Stack>
                   );
                 })}

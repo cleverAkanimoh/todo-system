@@ -29,6 +29,7 @@ export default function TodoModal() {
   const addTodo = useTodoStore((s) => s.addTodo);
   const editTodo = useTodoStore((s) => s.editTodo);
   const currentTodos = useTodoAction((state) => state.currentTodos);
+  const setCurrentTodo = useTodoAction((state) => state.setCurrentTodo);
   const searchParams = useSearchParams();
   const setQueryParams = useSetQueryParams();
 
@@ -47,6 +48,17 @@ export default function TodoModal() {
   const [todoPriority, setTodoPriority] = useState<TodoPriority | null>(
     currentTodos?.priority || null
   );
+
+  useEffect(() => {
+    if (currentTodos) {
+      setTodoName(currentTodos.name);
+      setTodoStatus(currentTodos.status);
+      setTodoDates(currentTodos.dates);
+      setTodoAssignees(currentTodos.assignees);
+      setTodoPriority(currentTodos.priority);
+      setTodoDescription(currentTodos.description || "");
+    }
+  }, [currentTodos]);
 
   useEffect(() => {
     if (addStatus) {
@@ -78,6 +90,7 @@ export default function TodoModal() {
       onOpenChange={(e) => {
         setQueryParams({ addStatus: null });
         setTodoStatus(TodoStatus.TODO);
+        setCurrentTodo(undefined);
         setOpenTodoModal(e.open);
       }}
       placement="center"

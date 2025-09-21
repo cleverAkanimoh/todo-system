@@ -61,7 +61,7 @@ const TodoContentTable = () => {
           )
         : true
     );
-  
+
   const filteredTotalPages = Math.ceil(filteredTodos.length / pageSize);
 
   const pagedTodos = filteredTodos.slice(start, end);
@@ -140,36 +140,38 @@ const TodoContentTable = () => {
                         <Popover.Arrow />
                         <Popover.Body p="0">
                           <Stack>
-                            {[
-                              {
-                                label: "Edit Todo",
-                                icon: Edit,
-                                onClick: () => setCurrentTodo(item, true),
-                              },
-                              {
-                                label: "Delete Todo",
-                                icon: Trash,
-                                onClick: () => deleteTodo(item.id),
-                              },
-                            ].map((item, idx) => {
-                              const isDelete = item.label.startsWith("Delete");
+                            {item.id.length > 2 &&
+                              [
+                                {
+                                  label: "Edit Todo",
+                                  icon: Edit,
+                                  onClick: () => setCurrentTodo(item, true),
+                                },
+                                {
+                                  label: "Delete Todo",
+                                  icon: Trash,
+                                  onClick: () => deleteTodo(item.id),
+                                },
+                              ].map((item, idx) => {
+                                const isDelete =
+                                  item.label.startsWith("Delete");
 
-                              return (
-                                <Button
-                                  key={idx}
-                                  variant="ghost"
-                                  justifyContent="start"
-                                  onClick={item.onClick}
-                                  color={isDelete ? "red" : "black"}
-                                  rounded="none"
-                                >
-                                  <item.icon
+                                return (
+                                  <Button
+                                    key={idx}
+                                    variant="ghost"
+                                    justifyContent="start"
+                                    onClick={item.onClick}
                                     color={isDelete ? "red" : "black"}
-                                  />
-                                  {item.label}
-                                </Button>
-                              );
-                            })}
+                                    rounded="none"
+                                  >
+                                    <item.icon
+                                      color={isDelete ? "red" : "black"}
+                                    />
+                                    {item.label}
+                                  </Button>
+                                );
+                              })}
 
                             <Badge
                               bg={getToDoColor(item.status)}
