@@ -68,6 +68,6 @@ src/
 
 **Github Link** https://github.com/cleverAkanimoh/todo-system
 
-**Live Link**
+**Live Link** https://modern-todo-app-chi.vercel.app/
 
 ---
