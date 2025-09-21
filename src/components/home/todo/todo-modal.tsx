@@ -16,7 +16,7 @@ import { ProfileCircle, Stickynote } from "iconsax-react";
 import { useState } from "react";
 
 import { useTodoAction } from "@/store/todo-action";
-import { TodoPriority, TodoStatus, useTodoStore } from "@/store/todos";
+import { TodoPriority, TodoStatus, TTodo, useTodoStore } from "@/store/todos";
 import TodoDatesPicker from "./todo-date-picker";
 import ToDoPriorityPicker from "./todo-priority-picker";
 import TodoStatusPicker from "./todo-status-picker";
@@ -25,23 +25,40 @@ export default function TodoModal() {
   const openTodoModal = useTodoAction((s) => s.openTodoModal);
   const setOpenTodoModal = useTodoAction((s) => s.setOpenTodoModal);
   const addTodo = useTodoStore((s) => s.addTodo);
+  const editTodo = useTodoStore((s) => s.editTodo);
+  const currentTodos = useTodoAction((state) => state.currentTodos);
 
-  const [todoStatus, setTodoStatus] = useState<TodoStatus>(TodoStatus.TODO);
-  const [todoName, setTodoName] = useState("MKV Intranet V2");
-  const [todoDates, setTodoDates] = useState("");
-  const [todoDescription, setTodoDescription] = useState("");
-  const [todoAssignees, setTodoAssignees] = useState(1);
-  const [todoPriority, setTodoPriority] = useState<TodoPriority | null>(null);
+  const [todoStatus, setTodoStatus] = useState<TodoStatus>(
+    currentTodos?.status || TodoStatus.TODO
+  );
+  const [todoName, setTodoName] = useState(
+    currentTodos?.name || "MKV Intranet V2"
+  );
+  const [todoDates, setTodoDates] = useState(currentTodos?.dates || "");
+  const [todoDescription, setTodoDescription] = useState(
+    currentTodos?.description || ""
+  );
+  const [todoAssignees, setTodoAssignees] = useState(
+    currentTodos?.assignees || 1
+  );
+  const [todoPriority, setTodoPriority] = useState<TodoPriority | null>(
+    currentTodos?.priority || null
+  );
 
-  const createTask = () => {
-    addTodo({
+  const mutateTask = () => {
+    const todoPayload: Omit<TTodo, "id"> = {
       name: todoName,
       assignees: todoAssignees,
       dates: todoDates,
       description: todoDescription,
       priority: todoPriority || TodoPriority.MEDIUM,
       status: todoStatus,
-    });
+    };
+    if (currentTodos) {
+      editTodo({ ...todoPayload, id: currentTodos.id });
+    } else {
+      addTodo(todoPayload);
+    }
     setOpenTodoModal(false);
   };
 
@@ -125,17 +142,17 @@ export default function TodoModal() {
               <Button
                 bg="teal.1"
                 size="sm"
-                onClick={createTask}
+                onClick={mutateTask}
                 title={
                   !todoName || !todoDates || !todoAssignees || !todoPriority
-                    ? "Complete all fields to create task"
+                    ? "Complete all fields to Submit Task"
                     : ""
                 }
                 disabled={
                   !todoName || !todoDates || !todoAssignees || !todoPriority
                 }
               >
-                Create Task
+                {currentTodos ? "Update Task" : "Create Task"}
               </Button>
             </Dialog.Footer>
 

@@ -117,7 +117,7 @@ export default function SidebarContent() {
           )
         )}
       </Stack>
-      <Stack gap="4" p="4" bg="#F7F7F7" rounded="12px">
+      <Stack gap="3" p="4" bg="#F7F7F7" rounded="12px">
         <CountrySelect />
         <DarkModeSwitcher />
       </Stack>

@@ -26,7 +26,7 @@ export interface TTodo {
 interface TodoState {
   todos: TTodo[];
   addTodo: (todo: Omit<TTodo, "id">) => void;
-  editTodo: (id: string, todo: TTodo) => void;
+  editTodo: (todo: TTodo) => void;
   removeTodo: (id: string) => void;
   clearAll: () => void;
 }
@@ -39,9 +39,11 @@ export const useTodoStore = create<TodoState>()(
         set((state) => ({
           todos: [...state.todos, { ...todo, id: crypto.randomUUID() }],
         })),
-      editTodo: (id, todo) =>
+      editTodo: (todo) =>
         set((state) => ({
-          todos: state.todos.map((t) => (t.id === id ? { ...t, ...todo } : t)),
+          todos: state.todos.map((t) =>
+            t.id === todo.id ? { ...t, ...todo } : t
+          ),
         })),
       removeTodo: (id) =>
         set((state) => ({

@@ -1,20 +1,29 @@
+"use client";
+
+import { useSetQueryParams } from "@/hooks";
 import {
   Box,
   Button,
   CloseButton,
   Dialog,
   Group,
+  IconButton,
   Input,
   Portal,
 } from "@chakra-ui/react";
 import { CloseCircle, SearchNormal } from "iconsax-react";
+import { useSearchParams } from "next/navigation";
 
 const SearchContent = () => {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || "";
+
+  const setSearchParams = useSetQueryParams();
   return (
     <Group
       align="center"
       bg="background"
-      px="4"
+      pl="3"
       borderRadius={"lg"}
       w="100%"
       maxW={{ md: "400px" }}
@@ -22,14 +31,27 @@ const SearchContent = () => {
       borderColor="border"
       flexShrink="0"
     >
-      <SearchNormal color="black" size="18" />
+      <SearchNormal color="black" size="16" />
       <Input
         type="text"
-        placeholder="Type a todo..."
+        value={search}
+        h="35px"
+        flex="1"
+        onChange={(e) => setSearchParams({ search: e.target.value, page: 1 })}
+        placeholder="Search todo..."
         border="0"
         _focus={{ border: "0", ring: "0", outline: "0" }}
+        fontSize="sm"
       />
-      <CloseCircle color="black" size="18" />
+      <IconButton
+        onClick={() => setSearchParams({ search: null, page: 1 })}
+        variant="ghost"
+        p="0"
+        size="xs"
+        disabled={!search}
+      >
+        <CloseCircle color="black" size="18" />
+      </IconButton>
     </Group>
   );
 };

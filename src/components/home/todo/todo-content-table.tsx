@@ -2,8 +2,11 @@
 
 import { useSetQueryParams } from "@/hooks";
 import { useTodo } from "@/hooks/useTodo";
+import { useTodoStore } from "@/store";
+import { useTodoAction } from "@/store/todo-action";
 import {
   Avatar,
+  Badge,
   Button,
   ButtonGroup,
   createListCollection,
@@ -11,23 +14,26 @@ import {
   Group,
   IconButton,
   Pagination,
+  Popover,
   Portal,
   Select,
   Stack,
   Table,
   Text,
 } from "@chakra-ui/react";
-import { Flag } from "iconsax-react";
+import { Edit, Flag, Trash } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
 import { FaEllipsisH } from "react-icons/fa";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { getPriorityColor } from "./todo-utils";
+import { getPriorityColor, getToDoColor, getToDoIcon } from "./todo-utils";
 
 const TodoContentTable = () => {
   const searchParams = useSearchParams();
   const setUrlSearchParams = useSetQueryParams();
   const { allTodos } = useTodo();
+  const deleteTodo = useTodoStore((state) => state.removeTodo);
+  const setCurrentTodo = useTodoAction((state) => state.setCurrentTodo);
 
   const pageSize = Number(searchParams.get("page_size") || 5);
   const status = searchParams.get("status");
@@ -42,7 +48,7 @@ const TodoContentTable = () => {
   const normalizedSearch = search?.toLowerCase().trim() ?? "";
   const normalizedStatus = status?.toLowerCase().trim() ?? "";
 
-  const pagedTodos = allTodos
+  const filteredTodos = allTodos
     .filter((t) =>
       normalizedStatus
         ? t.status.toLowerCase().trim() === normalizedStatus
@@ -54,8 +60,9 @@ const TodoContentTable = () => {
             String(v).toLowerCase().includes(normalizedSearch)
           )
         : true
-    )
-    .slice(start, end);
+    );
+
+  const pagedTodos = filteredTodos.slice(start, end);
 
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
@@ -90,6 +97,7 @@ const TodoContentTable = () => {
         <Table.Body>
           {pagedTodos.map((item, idx) => {
             const priority = item.priority.toLowerCase();
+            const TodoIcon = getToDoIcon(item.status);
             return (
               <Table.Row key={idx} fontWeight={500} color="black.1">
                 <Table.Cell px="4" py="6">
@@ -112,15 +120,73 @@ const TodoContentTable = () => {
                   </Flex>
                 </Table.Cell>
                 <Table.Cell>
-                  <Button
-                    variant="subtle"
-                    h="20px"
-                    w="30px"
-                    bg="#F7F7F7"
-                    scale="0.8"
-                  >
-                    <FaEllipsisH color="#6C7278" />
-                  </Button>
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <Button
+                        variant="subtle"
+                        h="20px"
+                        w="30px"
+                        bg="#F7F7F7"
+                        scale="0.8"
+                      >
+                        <FaEllipsisH color="#6C7278" />
+                      </Button>
+                    </Popover.Trigger>
+
+                    <Popover.Positioner>
+                      <Popover.Content maxW="180px" overflow="hidden">
+                        <Popover.Arrow />
+                        <Popover.Body p="0">
+                          <Stack>
+                            {[
+                              {
+                                label: "Edit Todo",
+                                icon: Edit,
+                                onClick: () => setCurrentTodo(item, true),
+                              },
+                              {
+                                label: "Delete Todo",
+                                icon: Trash,
+                                onClick: () => deleteTodo(item.id),
+                              },
+                            ].map((item, idx) => {
+                              const isDelete = item.label.startsWith("Delete");
+
+                              return (
+                                <Button
+                                  key={idx}
+                                  variant="ghost"
+                                  justifyContent="start"
+                                  onClick={item.onClick}
+                                  color={isDelete ? "red" : "black"}
+                                  rounded="none"
+                                >
+                                  <item.icon
+                                    color={isDelete ? "red" : "black"}
+                                  />
+                                  {item.label}
+                                </Button>
+                              );
+                            })}
+
+                            <Badge
+                              bg={getToDoColor(item.status)}
+                              color="white"
+                              fontWeight="600"
+                              justifyContent="center"
+                              p="3"
+                              rounded="none"
+                            >
+                              {item.status && (
+                                <TodoIcon size="16" color="white" />
+                              )}
+                              {item.status.toUpperCase()}
+                            </Badge>
+                          </Stack>
+                        </Popover.Body>
+                      </Popover.Content>
+                    </Popover.Positioner>
+                  </Popover.Root>
                 </Table.Cell>
               </Table.Row>
             );
@@ -130,7 +196,7 @@ const TodoContentTable = () => {
 
       <Flex wrap="wrap" justify="space-between" align="start" gap="4">
         <Pagination.Root
-          count={allTodos.length}
+          count={filteredTodos.length}
           pageSize={pageSize}
           page={currentPage}
           bg="background"

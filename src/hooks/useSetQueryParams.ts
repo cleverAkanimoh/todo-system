@@ -23,7 +23,11 @@ export function useSetQueryParams() {
 
     const query = params.toString();
     const url = query ? `${pathname}?${query}` : pathname;
+    if (options?.replace) {
+      router.replace(url);
+      return;
+    }
 
-    options?.replace ? router.replace(url) : router.push(url);
+    router.push(url);
   };
 }

@@ -65,6 +65,7 @@ const CountrySelect = () => {
       collection={countries}
       size="md"
       bg="white"
+      rounded="lg"
       defaultValue={["GB"]}
       positioning={{ sameWidth: true }}
     >

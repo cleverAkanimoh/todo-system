@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa6";
 export default function DarkModeSwitcher() {
   // const { toggleColorMode, colorMode } = useColorMode();
   return (
-    <HStack justify={"space-between"} w="100%">
+    <HStack justify={"space-between"} w="100%" bg="white" p="2" rounded="lg">
       <Text>Dark Mode</Text>
 
       <Switch.Root

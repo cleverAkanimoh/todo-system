@@ -61,7 +61,7 @@ export default function TodoContentStats() {
             maxW={{ md: "180px" }}
             justify="space-between"
             onClick={() =>
-              setQueryParams({ status: isActive ? null : item.id })
+              setQueryParams({ status: isActive ? null : item.id, page: 1 })
             }
             cursor="pointer"
           >

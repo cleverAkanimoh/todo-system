@@ -53,6 +53,18 @@ export const getToDoColor = (todoId?: string) => {
 
   return todoColor;
 };
+export const getToDoIcon = (status?: string) => {
+  const todoStatus = (status || "").toLowerCase();
+
+  const todoIcon =
+    todoStatus === TodoStatus.COMPLETED
+      ? TickCircle
+      : todoStatus === TodoStatus.IN_PROGRESS
+      ? Status
+      : TaskSquare;
+
+  return todoIcon;
+};
 
 export const todosColumn = ({
   TodosOnCompleted,
