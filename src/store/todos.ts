@@ -1,16 +1,31 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface Todo {
+export enum TodoStatus {
+  COMPLETED = "completed",
+  TODO = "to-do",
+  IN_PROGRESS = "in-progress",
+}
+export enum TodoPriority {
+  MEDIUM = "medium",
+  IMPORTANT = "important",
+  URGENT = "urgent",
+}
+
+export interface TTodo {
   id: string;
-  title: string;
-  completed: boolean;
+  name: string;
+  status: TodoStatus;
+  assignees: number;
+  dates: string;
+  priority: TodoPriority;
+  description: string;
 }
 
 interface TodoState {
-  todos: Todo[];
-  addTodo: (title: string) => void;
-  toggleTodo: (id: string) => void;
+  todos: TTodo[];
+  addTodo: (todo: TTodo) => void;
+  editTodo: (id: string, todo: TTodo) => void;
   removeTodo: (id: string) => void;
   clearAll: () => void;
 }
@@ -19,18 +34,13 @@ export const useTodoStore = create<TodoState>()(
   persist(
     (set) => ({
       todos: [],
-      addTodo: (title) =>
+      addTodo: (todo) =>
         set((state) => ({
-          todos: [
-            ...state.todos,
-            { id: crypto.randomUUID(), title, completed: false },
-          ],
+          todos: [...state.todos, { ...todo, id: crypto.randomUUID() }],
         })),
-      toggleTodo: (id) =>
+      editTodo: (id, todo) =>
         set((state) => ({
-          todos: state.todos.map((t) =>
-            t.id === id ? { ...t, completed: !t.completed } : t
-          ),
+          todos: state.todos.map((t) => (t.id === id ? { ...t, ...todo } : t)),
         })),
       removeTodo: (id) =>
         set((state) => ({

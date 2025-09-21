@@ -9,11 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import {
-  Calendar,
-  Flag,
-  ProfileCircle
-} from "iconsax-react";
+import { Calendar, Flag, ProfileCircle } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
 import { BiPlus } from "react-icons/bi";
 import { getPriorityColor, todosColum } from "./todo-utils";
@@ -68,13 +64,13 @@ export default function TodoContentCards() {
                       <Group>
                         <Calendar color="black" size="16" />{" "}
                         <Text color="black.1" fontWeight={400}>
-                          {item.date}
+                          {item.dates}
                         </Text>
                       </Group>
                       <Group>
                         <ProfileCircle color="black" size="16" />{" "}
                         <Text color="black.1" fontWeight={400}>
-                          {Array.from({ length: item.assignee }, (_, idx) => {
+                          {Array.from({ length: item.assignees }, (_, idx) => {
                             return (
                               <Avatar.Root
                                 key={idx}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSetQueryParams } from "@/hooks";
+import { useTodoStore } from "@/store";
 import {
   Avatar,
   Button,
@@ -26,6 +27,7 @@ import { dummyTodos, getPriorityColor } from "./todo-utils";
 const TodoContentTable = () => {
   const searchParams = useSearchParams();
   const setUrlSearchParams = useSetQueryParams();
+  const todos = useTodoStore((state) => state.todos);
   const pageSize = Number(searchParams.get("page_size") || 5);
   const currentPage = Number(searchParams.get("page") || 1);
 
@@ -34,7 +36,7 @@ const TodoContentTable = () => {
   const start = (safePage - 1) * pageSize;
   const end = start + pageSize;
 
-  const pagedTodos = dummyTodos.slice(start, end);
+  const pagedTodos = [...todos, ...dummyTodos].slice(start, end);
 
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
@@ -75,10 +77,10 @@ const TodoContentTable = () => {
                   {item.name}
                 </Table.Cell>
                 <Table.Cell px="4" py="6">
-                  {item.date}
+                  {item.dates}
                 </Table.Cell>
                 <Table.Cell py="6">
-                  {Array.from({ length: item.assignee }, (_, idx) => {
+                  {Array.from({ length: item.assignees }, (_, idx) => {
                     return (
                       <Avatar.Root key={idx} w="20px" h="20px"></Avatar.Root>
                     );

@@ -4,22 +4,22 @@ const baseItems = [
   {
     id: 1,
     name: "MKV Intranet V2",
-    date: "04/06/2024 - 16/06/2014",
-    assignee: 3,
+    dates: "04/06/2024 - 16/06/2014",
+    assignees: 3,
     priority: "medium",
   },
   {
     id: 2,
     name: "Design System",
-    date: "23/06/2024 - 24/06/2024",
-    assignee: 3,
+    dates: "23/06/2024 - 24/06/2024",
+    assignees: 3,
     priority: "important",
   },
   {
     id: 3,
     name: "Medical Appointment",
-    date: "16/06/2024 - 18/06/2024",
-    assignee: 2,
+    dates: "16/06/2024 - 18/06/2024",
+    assignees: 2,
     priority: "urgent",
   },
 ];
@@ -37,9 +37,6 @@ export const getPriorityColor = (priority?: string) => {
 };
 
 export const dummyTodos = [
-  ...baseItems,
-  ...baseItems,
-  ...baseItems,
   ...baseItems,
   ...baseItems,
   ...baseItems,

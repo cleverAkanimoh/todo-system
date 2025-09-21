@@ -18,7 +18,7 @@ export default function TodoHeader() {
           Afdeling Kwaliteit
         </Text>
       </Group>
-      <Group gap="4">
+      <Flex wrap={{ base: "wrap", sm: "nowrap" }} gap="4">
         {[
           () => (
             <Switch.Root size={"xs"} pl="2">
@@ -60,7 +60,7 @@ export default function TodoHeader() {
             </Button>
           );
         })}
-      </Group>
+      </Flex>
     </Flex>
   );
 }
