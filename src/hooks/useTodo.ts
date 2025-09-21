@@ -5,7 +5,7 @@ import { TodoStatus } from "@/store/todos";
 export const useTodo = () => {
   const todos = useTodoStore((s) => s.todos);
 
-  const allTodos = [...todos, ...baseItems, ...baseItems];
+  const allTodos = [...baseItems, ...baseItems, ...todos].toReversed();
 
   const TodosOnToDo = allTodos.filter((t) => t.status === TodoStatus.TODO);
   const TodosOnInProgress = allTodos.filter(
