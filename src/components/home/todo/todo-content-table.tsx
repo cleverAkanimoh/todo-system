@@ -1,7 +1,6 @@
 "use client";
 
 import { useSetQueryParams } from "@/hooks";
-import { useTodoStore } from "@/store";
 import {
   Avatar,
   Button,
@@ -22,21 +21,18 @@ import { useSearchParams } from "next/navigation";
 import { FaEllipsisH } from "react-icons/fa";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { dummyTodos, getPriorityColor } from "./todo-utils";
+import { allTodos, getPriorityColor } from "./todo-utils";
 
 const TodoContentTable = () => {
   const searchParams = useSearchParams();
   const setUrlSearchParams = useSetQueryParams();
-  const todos = useTodoStore((state) => state.todos);
   const pageSize = Number(searchParams.get("page_size") || 5);
   const currentPage = Number(searchParams.get("page") || 1);
 
-  const totalPages = Math.ceil(dummyTodos.length / pageSize);
+  const totalPages = Math.ceil(allTodos.length / pageSize);
   const safePage = Math.min(Math.max(currentPage, 1), totalPages);
   const start = (safePage - 1) * pageSize;
   const end = start + pageSize;
-
-  const allTodos = [...todos, ...dummyTodos];
 
   const pagedTodos = allTodos.slice(start, end);
 
