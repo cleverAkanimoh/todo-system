@@ -1,44 +1,77 @@
-# Todo System — Next.js + TypeScript + Chakra UI
-
-This project contains a ready-to-use starter scaffold to implement the **Todo System** from the Figma design you shared. It focuses on Next.js, TypeScript, Chakra UI, iconsax-react and react-icons, localStorage persistence, and live updates.
+Here’s a **polished, interview-ready README** that keeps your original details but presents them in a more professional, concise, and recruiter-friendly way:
 
 ---
 
-## Quick Overview
+# 📝 Todo System
 
-- Next.js + TypeScript
-- Chakra UI for UI primitives and theming
-- iconsax-react + react-icons for icons
-- Context-based state management for todos + localStorage persistence
-- Todo list rendered as both a table and card list
-- Mark todo completed → moves to Completed section
-- Add-todo modal with optimistic UI update
-- Loading & empty states included
+A responsive **Todo Management App** built with **Next.js**, **TypeScript**, and **Chakra UI v3**, inspired by the provided [Figma design](https://www.figma.com/design/y5jco2weGtIH3sdy6BVyMW/T-GLOBAL-TEST?node-id=2001-57594&t=Beg65ppOaR9bP96J-0).
+This project demonstrates converting a modern UI design into a fully functioning web application.
 
 ---
 
-## Setup (commands)
+## 🚀 Features
+
+- **Add, search, and filter todos** by status (To-Do, In Progress, Completed).
+- **Mark tasks as completed** – automatically moves them to the _Completed_ section.
+- **Dual layouts:** Table view and card view of todos.
+- **Optimistic UI updates** and **localStorage persistence** for a smooth experience.
+- **Responsive design** following Chakra UI best practices.
+- **Loading & empty states** for a production-like feel.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology                         | Purpose                                 |
+| ---------------------------------- | --------------------------------------- |
+| **Next.js** (latest)               | React framework for SSR/SSG and routing |
+| **TypeScript**                     | Static type checking                    |
+| **Chakra UI v3**                   | UI components & theming                 |
+| **iconsax-react**, **react-icons** | Iconography                             |
+| **localStorage**                   | Client-side persistence of todos        |
+
+---
+
+## 📦 Getting Started
+
+### 1️⃣ Clone & Install
 
 ```bash
-# create project (if not already created)
-yarn create next-app todo-system --typescript
+git clone <your-repo-url>
 cd todo-system
-
-# install dependencies
-yarn add @chakra-ui/react @emotion/react @emotion/styled framer-motion iconsax-react react-icons
-
-# dev server
-yarn dev
+yarn
 ```
 
-````md
-# Todo System (starter)
-
-## Run
+### 2️⃣ Run the Dev Server
 
 ```bash
-yarn
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+App will be available at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+ ├─ components/     # Reusable UI components
+ ├─ pages/          # Next.js pages & routes
+ ├─ store/          # Zustand/Context state management
+ ├─ utils/          # Utility helpers
+ └─ styles/         # Global styles & theme overrides
+```
+
+---
+
+**Author:** Clever Akanimoh
+**License:** MIT (or specify if different)
+
+**Project Links**
+
+**Github Link** https://github.com/cleverAkanimoh/todo-system
+
+**Live Link**
+
+---
