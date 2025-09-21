@@ -20,12 +20,12 @@ export interface TTodo {
   assignees: number;
   dates: string;
   priority: TodoPriority;
-  description: string;
+  description?: string;
 }
 
 interface TodoState {
   todos: TTodo[];
-  addTodo: (todo: TTodo) => void;
+  addTodo: (todo: Omit<TTodo, "id">) => void;
   editTodo: (id: string, todo: TTodo) => void;
   removeTodo: (id: string) => void;
   clearAll: () => void;
