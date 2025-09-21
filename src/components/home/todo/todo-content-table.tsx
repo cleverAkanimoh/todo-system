@@ -1,6 +1,7 @@
 "use client";
 
 import { useSetQueryParams } from "@/hooks";
+import { useTodo } from "@/hooks/useTodo";
 import {
   Avatar,
   Button,
@@ -21,11 +22,12 @@ import { useSearchParams } from "next/navigation";
 import { FaEllipsisH } from "react-icons/fa";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { allTodos, getPriorityColor } from "./todo-utils";
+import { getPriorityColor } from "./todo-utils";
 
 const TodoContentTable = () => {
   const searchParams = useSearchParams();
   const setUrlSearchParams = useSetQueryParams();
+  const { allTodos } = useTodo();
 
   const pageSize = Number(searchParams.get("page_size") || 5);
   const status = searchParams.get("status");

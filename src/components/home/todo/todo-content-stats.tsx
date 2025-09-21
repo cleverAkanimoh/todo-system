@@ -1,15 +1,19 @@
 "use client";
 
 import { useSetQueryParams } from "@/hooks";
+import { useTodo } from "@/hooks/useTodo";
 import { TodoStatus } from "@/store/todos";
 import { Box, Group, Text } from "@chakra-ui/react";
 import { Status, TaskSquare, TickCircle } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
-import { getToDoColor, todoCount } from "./todo-utils";
+import { getToDoColor } from "./todo-utils";
 
 export default function TodoContentStats() {
   const searchParams = useSearchParams();
   const setQueryParams = useSetQueryParams();
+
+  const { todoCount } = useTodo();
+
   const status = searchParams.get("status");
 
   const isVerticalLayout =

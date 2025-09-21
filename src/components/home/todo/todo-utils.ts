@@ -1,7 +1,7 @@
-import { TodoPriority, TodoStatus, TTodo, useTodoStore } from "@/store/todos";
+import { TodoPriority, TodoStatus, TTodo } from "@/store/todos";
 import { Status, TaskSquare, TickCircle } from "iconsax-react";
 
-const baseItems: TTodo[] = [
+export const baseItems: TTodo[] = [
   {
     id: "1",
     name: "MKV Intranet V2",
@@ -54,19 +54,15 @@ export const getToDoColor = (todoId?: string) => {
   return todoColor;
 };
 
-const createdTodos = useTodoStore.getState().todos;
-
-export const allTodos = [...createdTodos, ...baseItems, ...baseItems];
-
-const TodosOnToDo = allTodos.filter((t) => t.status === TodoStatus.TODO);
-const TodosOnInProgress = allTodos.filter(
-  (t) => t.status === TodoStatus.IN_PROGRESS
-);
-const TodosOnCompleted = allTodos.filter(
-  (t) => t.status === TodoStatus.COMPLETED
-);
-
-export const todosColum = [
+export const todosColumn = ({
+  TodosOnCompleted,
+  TodosOnInProgress,
+  TodosOnToDo,
+}: {
+  TodosOnCompleted: TTodo[];
+  TodosOnInProgress: TTodo[];
+  TodosOnToDo: TTodo[];
+}) => [
   {
     label: "To Do",
     id: "to-do",
