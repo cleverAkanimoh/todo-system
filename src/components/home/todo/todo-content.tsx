@@ -1,12 +1,18 @@
 import { Stack } from "@chakra-ui/react";
-import { TodoContentHeader, TodoContentStats, TodoContentTable } from "..";
+import {
+  TodoContentCards,
+  TodoContentHeader,
+  TodoContentStats,
+  TodoContentTable,
+} from "..";
 
 export default function TodoContent() {
   return (
-    <Stack p="4">
+    <Stack p="4" gap="4">
       <TodoContentHeader />
       <TodoContentStats />
       <TodoContentTable />
+      <TodoContentCards />
     </Stack>
   );
 }

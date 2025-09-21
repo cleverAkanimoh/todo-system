@@ -1,27 +1,45 @@
 "use client";
 
+import { useSetQueryParams } from "@/hooks";
 import {
-    Avatar,
-    Button,
-    ButtonGroup,
-    Flex,
-    IconButton,
-    Pagination,
-    Stack,
-    Table,
+  Avatar,
+  Button,
+  ButtonGroup,
+  createListCollection,
+  Flex,
+  Group,
+  IconButton,
+  Pagination,
+  Portal,
+  Select,
+  Stack,
+  Table,
+  Text,
 } from "@chakra-ui/react";
 import { Flag } from "iconsax-react";
+import { useSearchParams } from "next/navigation";
 import { FaEllipsisH } from "react-icons/fa";
+import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { dummyTodos, getPriorityColor } from "./todo-utils";
 
 const TodoContentTable = () => {
+  const searchParams = useSearchParams();
+  const setUrlSearchParams = useSetQueryParams();
+  const pageSize = Number(searchParams.get("page_size") || 5);
+  const currentPage = Number(searchParams.get("page") || 1);
+
+  const isVerticalLayout =
+    (searchParams.get("layout") || "vertical") === "vertical";
+
+  if (!isVerticalLayout) return <></>;
   return (
     <Stack width="full" gap="5" h="full">
       <Table.Root
         size="sm"
         variant="outline"
         rounded="lg"
-        overflow={"auto"}
+        overflowX={"auto"}
         h="full"
       >
         <Table.Header>
@@ -42,21 +60,17 @@ const TodoContentTable = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {items.map((item) => {
+          {dummyTodos.map((item) => {
             const priority = item.priority.toLowerCase();
-            const flagColor =
-              priority === "medium"
-                ? "#75C5C1"
-                : priority === "important"
-                ? "#F6BE38"
-                : "#FF515D";
             return (
               <Table.Row key={item.id} fontWeight={500} color="black.1">
                 <Table.Cell px="4" py="6">
                   {item.name}
                 </Table.Cell>
-                <Table.Cell>{item.date}</Table.Cell>
-                <Table.Cell>
+                <Table.Cell px="4" py="6">
+                  {item.date}
+                </Table.Cell>
+                <Table.Cell py="6">
                   {Array.from({ length: item.assignee }, (_, idx) => {
                     return (
                       <Avatar.Root key={idx} w="20px" h="20px"></Avatar.Root>
@@ -65,7 +79,7 @@ const TodoContentTable = () => {
                 </Table.Cell>
                 <Table.Cell textTransform="capitalize">
                   <Flex align="center" gap={{ base: "2", md: "4" }}>
-                    <Flag color={flagColor} size="18" />
+                    <Flag color={getPriorityColor(priority)} size="18" />
                     {priority}
                   </Flex>
                 </Table.Cell>
@@ -86,57 +100,112 @@ const TodoContentTable = () => {
         </Table.Body>
       </Table.Root>
 
-      <Pagination.Root count={items.length * 5} pageSize={5} page={1}>
-        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
-          <Pagination.PrevTrigger asChild>
-            <IconButton>
-              <LuChevronLeft />
+      <Flex wrap="wrap" justify="space-between" align="start" gap="4">
+        <Pagination.Root
+          count={dummyTodos.length * 5}
+          pageSize={pageSize}
+          page={currentPage}
+          bg="background"
+          w="fit-content"
+          rounded="full"
+          p="1"
+        >
+          <ButtonGroup
+            variant="ghost"
+            size={{ base: "xs", lg: "sm" }}
+            wrap="wrap"
+            gap="2"
+          >
+            <IconButton
+              disabled={currentPage <= 2}
+              onClick={() => setUrlSearchParams({ page: currentPage - 2 })}
+            >
+              <FiChevronsLeft />
             </IconButton>
-          </Pagination.PrevTrigger>
-
-          <Pagination.Items
-            render={(page) => (
-              <IconButton variant={{ base: "ghost", _selected: "outline" }}>
-                {page.value}
+            <Pagination.PrevTrigger asChild>
+              <IconButton
+                onClick={() => setUrlSearchParams({ page: currentPage - 1 })}
+              >
+                <LuChevronLeft />
               </IconButton>
-            )}
-          />
+            </Pagination.PrevTrigger>
 
-          <Pagination.NextTrigger asChild>
-            <IconButton>
-              <LuChevronRight />
-            </IconButton>
-          </Pagination.NextTrigger>
-        </ButtonGroup>
-      </Pagination.Root>
+            <Pagination.Items
+              render={(page) => (
+                <IconButton
+                  variant={{ base: "outline", _selected: "solid" }}
+                  rounded="full"
+                  borderColor="teal.1"
+                  color={{ _selected: "white", base: "teal.1" }}
+                  bg={{ _selected: "teal.1" }}
+                  onClick={() => setUrlSearchParams({ page: page.value })}
+                >
+                  {page.value}
+                </IconButton>
+              )}
+            />
+
+            <Pagination.NextTrigger asChild>
+              <IconButton
+                onClick={() => setUrlSearchParams({ page: currentPage + 1 })}
+              >
+                <LuChevronRight />
+              </IconButton>
+            </Pagination.NextTrigger>
+            <Pagination.NextTrigger asChild>
+              <IconButton
+                onClick={() => setUrlSearchParams({ page: currentPage + 2 })}
+              >
+                <FiChevronsRight />
+              </IconButton>
+            </Pagination.NextTrigger>
+          </ButtonGroup>
+        </Pagination.Root>
+
+        <Group flexShrink={0}>
+          <Text fontSize={{ base: "sm", lg: "base" }} textWrap={"nowrap"}>
+            Rows Per page:
+          </Text>
+          <Select.Root
+            collection={rowsPerPageRange}
+            value={[pageSize.toString()]}
+            onValueChange={({ value }) =>
+              setUrlSearchParams({ page_size: value[0] })
+            }
+          >
+            <Select.Control minW="60px">
+              <Select.Trigger
+                borderColor="teal.1"
+                rounded="full"
+                bg="background"
+              >
+                <Select.ValueText defaultValue={pageSize.toString()} />
+              </Select.Trigger>
+              <Select.IndicatorGroup>
+                <Select.Indicator />
+              </Select.IndicatorGroup>
+            </Select.Control>
+            <Portal>
+              <Select.Positioner>
+                <Select.Content>
+                  {rowsPerPageRange.items.map((page, idx) => (
+                    <Select.Item item={page} key={idx}>
+                      {page}
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Positioner>
+            </Portal>
+          </Select.Root>
+        </Group>
+      </Flex>
     </Stack>
   );
 };
 
 export default TodoContentTable;
 
-const baseItems = [
-  {
-    id: 1,
-    name: "MKV Intranet V2",
-    date: "04/06/2024 - 16/06/2014",
-    assignee: 3,
-    priority: "medium",
-  },
-  {
-    id: 2,
-    name: "Design System",
-    date: "23/06/2024 - 24/06/2024",
-    assignee: 3,
-    priority: "important",
-  },
-  {
-    id: 3,
-    name: "Medical Appointment",
-    date: "16/06/2024 - 18/06/2024",
-    assignee: 2,
-    priority: "urgent",
-  },
-];
-
-const items = [...baseItems, ...baseItems, ...baseItems, ...baseItems];
+const rowsPerPageRange = createListCollection({
+  items: ["5", "10", "20", "50"],
+});

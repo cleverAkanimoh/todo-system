@@ -10,6 +10,7 @@ export default function HomeToDo() {
       borderRadius="lg"
       w="100%"
       h="fit-content"
+      minH="85dvh"
     >
       <TodoHeader />
       <Separator />

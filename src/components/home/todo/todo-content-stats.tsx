@@ -10,6 +10,11 @@ export default function TodoContentStats() {
   const setQueryParams = useSetQueryParams();
   const status = searchParams.get("status");
 
+  const isVerticalLayout =
+    (searchParams.get("layout") || "vertical") === "vertical";
+
+  if (!isVerticalLayout) return <></>;
+
   return (
     <Group bg="background" p="2" borderRadius="md" w="full" overflow={"hidden"}>
       {[
