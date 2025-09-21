@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import type { Metadata } from "next";
 import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -33,7 +34,9 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${geistMono.variable} antialiased scroll-smooth `}
       >
         <Providers>
-          <LayoutClient>{children}</LayoutClient>
+          <Suspense>
+            <LayoutClient>{children}</LayoutClient>
+          </Suspense>
         </Providers>
       </body>
     </html>
