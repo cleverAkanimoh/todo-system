@@ -77,7 +77,7 @@ export const todosColumn = ({
 }) => [
   {
     label: "To Do",
-    id: "to-do",
+    id: TodoStatus.TODO,
     icon: TaskSquare,
     color: "#CFB7E8",
     bg: "purple.bg",
@@ -86,7 +86,7 @@ export const todosColumn = ({
   },
   {
     label: "In Progress",
-    id: "in-progress",
+    id: TodoStatus.IN_PROGRESS,
     icon: Status,
     color: "#F6BE38",
     bg: "yellow.bg",
@@ -95,7 +95,7 @@ export const todosColumn = ({
   },
   {
     label: "Complete",
-    id: "complete",
+    id: TodoStatus.COMPLETED,
     icon: TickCircle,
     color: "#75C5C1",
     bg: "green.bg",

@@ -61,6 +61,8 @@ const TodoContentTable = () => {
           )
         : true
     );
+  
+  const filteredTotalPages = Math.ceil(filteredTodos.length / pageSize);
 
   const pagedTodos = filteredTodos.slice(start, end);
 
@@ -211,7 +213,7 @@ const TodoContentTable = () => {
             gap="2"
           >
             <IconButton
-              disabled={currentPage <= 2}
+              disabled={currentPage - 2 < 1}
               onClick={() => setUrlSearchParams({ page: currentPage - 2 })}
             >
               <FiChevronsLeft />
@@ -247,7 +249,7 @@ const TodoContentTable = () => {
               </IconButton>
             </Pagination.NextTrigger>
             <IconButton
-              disabled={currentPage > totalPages - 2}
+              disabled={currentPage + 2 > filteredTotalPages}
               onClick={() => setUrlSearchParams({ page: currentPage + 2 })}
             >
               <FiChevronsRight />

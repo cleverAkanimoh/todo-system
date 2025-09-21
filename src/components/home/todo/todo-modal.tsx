@@ -17,6 +17,7 @@ import { useState } from "react";
 
 import { useTodoAction } from "@/store/todo-action";
 import { TodoPriority, TodoStatus, TTodo, useTodoStore } from "@/store/todos";
+import { useSearchParams } from "next/navigation";
 import TodoDatesPicker from "./todo-date-picker";
 import ToDoPriorityPicker from "./todo-priority-picker";
 import TodoStatusPicker from "./todo-status-picker";
@@ -27,13 +28,14 @@ export default function TodoModal() {
   const addTodo = useTodoStore((s) => s.addTodo);
   const editTodo = useTodoStore((s) => s.editTodo);
   const currentTodos = useTodoAction((state) => state.currentTodos);
+  const searchParams = useSearchParams();
 
+  const addStatus = searchParams.get("addStatus") as TodoStatus | null;
+  console.log(addStatus);
   const [todoStatus, setTodoStatus] = useState<TodoStatus>(
-    currentTodos?.status || TodoStatus.TODO
+    currentTodos?.status || addStatus || TodoStatus.TODO
   );
-  const [todoName, setTodoName] = useState(
-    currentTodos?.name || "MKV Intranet V2"
-  );
+  const [todoName, setTodoName] = useState(currentTodos?.name || "");
   const [todoDates, setTodoDates] = useState(currentTodos?.dates || "");
   const [todoDescription, setTodoDescription] = useState(
     currentTodos?.description || ""
