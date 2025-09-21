@@ -29,6 +29,13 @@ const TodoContentTable = () => {
   const pageSize = Number(searchParams.get("page_size") || 5);
   const currentPage = Number(searchParams.get("page") || 1);
 
+  const totalPages = Math.ceil(dummyTodos.length / pageSize);
+  const safePage = Math.min(Math.max(currentPage, 1), totalPages);
+  const start = (safePage - 1) * pageSize;
+  const end = start + pageSize;
+
+  const pagedTodos = dummyTodos.slice(start, end);
+
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
 
@@ -60,10 +67,10 @@ const TodoContentTable = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {dummyTodos.map((item) => {
+          {pagedTodos.map((item, idx) => {
             const priority = item.priority.toLowerCase();
             return (
-              <Table.Row key={item.id} fontWeight={500} color="black.1">
+              <Table.Row key={idx} fontWeight={500} color="black.1">
                 <Table.Cell px="4" py="6">
                   {item.name}
                 </Table.Cell>
@@ -102,7 +109,7 @@ const TodoContentTable = () => {
 
       <Flex wrap="wrap" justify="space-between" align="start" gap="4">
         <Pagination.Root
-          count={dummyTodos.length * 5}
+          count={dummyTodos.length}
           pageSize={pageSize}
           page={currentPage}
           bg="background"
@@ -112,7 +119,7 @@ const TodoContentTable = () => {
         >
           <ButtonGroup
             variant="ghost"
-            size={{ base: "xs", lg: "sm" }}
+            size={{ base: "xs" }}
             wrap="wrap"
             gap="2"
           >
@@ -152,13 +159,12 @@ const TodoContentTable = () => {
                 <LuChevronRight />
               </IconButton>
             </Pagination.NextTrigger>
-            <Pagination.NextTrigger asChild>
-              <IconButton
-                onClick={() => setUrlSearchParams({ page: currentPage + 2 })}
-              >
-                <FiChevronsRight />
-              </IconButton>
-            </Pagination.NextTrigger>
+            <IconButton
+              disabled={currentPage > totalPages - 2}
+              onClick={() => setUrlSearchParams({ page: currentPage + 2 })}
+            >
+              <FiChevronsRight />
+            </IconButton>
           </ButtonGroup>
         </Pagination.Root>
 
@@ -170,7 +176,7 @@ const TodoContentTable = () => {
             collection={rowsPerPageRange}
             value={[pageSize.toString()]}
             onValueChange={({ value }) =>
-              setUrlSearchParams({ page_size: value[0] })
+              setUrlSearchParams({ page_size: value[0], page: 1 })
             }
           >
             <Select.Control minW="60px">

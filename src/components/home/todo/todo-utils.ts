@@ -36,7 +36,16 @@ export const getPriorityColor = (priority?: string) => {
   return flagColor;
 };
 
-export const dummyTodos = [...baseItems, ...baseItems];
+export const dummyTodos = [
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+  ...baseItems,
+];
 
 export const todosColum = [
   {
