@@ -1,9 +1,11 @@
 "use client";
 
 import { useSetQueryParams } from "@/hooks";
+import { TodoStatus } from "@/store/todos";
 import { Box, Group, Text } from "@chakra-ui/react";
 import { Status, TaskSquare, TickCircle } from "iconsax-react";
 import { useSearchParams } from "next/navigation";
+import { getToDoColor } from "./todo-utils";
 
 export default function TodoContentStats() {
   const searchParams = useSearchParams();
@@ -20,36 +22,34 @@ export default function TodoContentStats() {
       {[
         {
           label: "To Do",
-          id: "to-do",
+          id: TodoStatus.TODO,
           icon: TaskSquare,
-          color: "#CFB7E8",
           bg: "purple.bg",
           count: 20,
         },
         {
           label: "In Progress",
-          id: "in-progress",
+          id: TodoStatus.IN_PROGRESS,
           icon: Status,
-          color: "#F6BE38",
           bg: "yellow.bg",
           count: 23,
         },
         {
           label: "Complete",
-          id: "complete",
+          id: TodoStatus.COMPLETED,
           icon: TickCircle,
-          color: "#75C5C1",
           bg: "green.bg",
           count: 20,
         },
       ].map((item) => {
         const isActive = status === item.id;
+        const color = getToDoColor(item.id);
         return (
           <Group
             key={item.id}
             as="button"
             align="center"
-            bg={isActive ? item.color : "white"}
+            bg={isActive ? color : "white"}
             py="1"
             px="3"
             borderRadius="md"
@@ -62,7 +62,7 @@ export default function TodoContentStats() {
             cursor="pointer"
           >
             <Group align="center">
-              <item.icon color={isActive ? "white" : item.color} size="20" />
+              <item.icon color={isActive ? "white" : color} size="20" />
               <Text fontSize={14} truncate color={isActive ? "white" : "black"}>
                 {item.label}
               </Text>

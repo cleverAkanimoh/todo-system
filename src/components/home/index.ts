@@ -7,5 +7,6 @@ export { default as TodoContentHeader } from "./todo/todo-content-header";
 export { default as TodoContentStats } from "./todo/todo-content-stats";
 export { default as TodoContentTable } from "./todo/todo-content-table";
 export { default as TodoHeader } from "./todo/todo-header";
+export { default as TodoModal } from "./todo/todo-modal";
 export { default as UserAvatar } from "./user-avatar";
 

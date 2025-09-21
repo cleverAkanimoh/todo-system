@@ -7,6 +7,7 @@ export enum TodoStatus {
   IN_PROGRESS = "in-progress",
 }
 export enum TodoPriority {
+  LOW = "low",
   MEDIUM = "medium",
   IMPORTANT = "important",
   URGENT = "urgent",

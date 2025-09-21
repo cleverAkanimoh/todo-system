@@ -1,8 +1,12 @@
+"use client";
+
+import { useTodoAction } from "@/store/todo-action";
 import { Button, Flex, Group, Switch, Text } from "@chakra-ui/react";
 import { AddCircle, Calendar, Export, Sort } from "iconsax-react";
 import { BsArrowLeftCircle } from "react-icons/bs";
 
 export default function TodoHeader() {
+  const setOpenTodoModal = useTodoAction((state) => state.setOpenTodoModal);
   return (
     <Flex
       p="4"
@@ -47,7 +51,12 @@ export default function TodoHeader() {
         })}
         {[
           { icon: Export, label: "Export xlsx", color: "purple.1" },
-          { icon: AddCircle, label: "Add Task", color: "teal.1" },
+          {
+            icon: AddCircle,
+            label: "Add Task",
+            color: "teal.1",
+            onClick: () => setOpenTodoModal(true),
+          },
         ].map((item, idx) => {
           return (
             <Button
@@ -55,6 +64,7 @@ export default function TodoHeader() {
               bg={item.color}
               alignItems={"center"}
               rounded="lg"
+              onClick={item?.onClick}
             >
               <item.icon color="white" /> {item.label}
             </Button>

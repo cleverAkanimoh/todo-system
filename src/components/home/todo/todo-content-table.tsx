@@ -36,7 +36,9 @@ const TodoContentTable = () => {
   const start = (safePage - 1) * pageSize;
   const end = start + pageSize;
 
-  const pagedTodos = [...todos, ...dummyTodos].slice(start, end);
+  const allTodos = [...todos, ...dummyTodos];
+
+  const pagedTodos = allTodos.slice(start, end);
 
   const isVerticalLayout =
     (searchParams.get("layout") || "vertical") === "vertical";
@@ -111,7 +113,7 @@ const TodoContentTable = () => {
 
       <Flex wrap="wrap" justify="space-between" align="start" gap="4">
         <Pagination.Root
-          count={dummyTodos.length}
+          count={allTodos.length}
           pageSize={pageSize}
           page={currentPage}
           bg="background"

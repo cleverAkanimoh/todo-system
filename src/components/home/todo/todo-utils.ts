@@ -1,3 +1,4 @@
+import { TodoStatus } from "@/store/todos";
 import { Status, TaskSquare, TickCircle } from "iconsax-react";
 
 const baseItems = [
@@ -31,9 +32,23 @@ export const getPriorityColor = (priority?: string) => {
       ? "#75C5C1"
       : priority === "important"
       ? "#F6BE38"
+      : priority === "low"
+      ? "#BAC1CC"
       : "#FF515D";
 
   return flagColor;
+};
+
+export const getToDoColor = (todoId?: string) => {
+  const todo = (todoId || "").toLowerCase();
+  const todoColor =
+    todo === TodoStatus.TODO
+      ? "#CFB7E8"
+      : todo === TodoStatus.IN_PROGRESS
+      ? "#F6BE38"
+      : "#75C5C1";
+
+  return todoColor;
 };
 
 export const dummyTodos = [
