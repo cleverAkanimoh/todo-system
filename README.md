@@ -7,7 +7,7 @@ This project demonstrates converting a modern UI design into a fully functioning
 
 ## 🚀 Features
 
-- **Add, search, and filter todos** by status (To-Do, In Progress, Completed).
+- **Add, Update, Delete, Search, and Filter todos** by status (To-Do, In Progress, Completed).
 - **Mark tasks as completed** – automatically moves them to the _Completed_ section.
 - **Dual layouts:** Table view and card view of todos.
 - **Optimistic UI updates** and **localStorage persistence** for a smooth experience.
